@@ -1,3 +1,5 @@
+3rd year project
+
 The project consists of a client/server architecture for voice over IP applications, similar to Skype or TeamSpeak.
 with our own communication protocol.
 
