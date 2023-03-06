@@ -3,7 +3,7 @@ with our own communication protocol.
 
 
 Category: Communication protocol                                       
-Epitech 2022                                                           N. Peter
+Epitech 2021                                                           N. Peter
                                                                        G. Soisson
                                                                        G. Debard
                                                                        M. Payant
