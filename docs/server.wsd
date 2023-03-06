@@ -1,0 +1,77 @@
+@startuml "ShipWreck Engine CoreView"
+
+skinparam class {
+    FontColor White
+    FontStyle bold
+    HeaderBackgroundColor DarkGray
+    AttributeFontColor White
+    BackgroundColor DarkGray
+}
+
+package com {
+
+    class TcpClientListener << (C, deepSkyBlue) >> {}
+
+    class statut << (e, LightGrey) >> {
+        + RUN
+        + STOP
+    }
+
+    class TcpServer << (C, deepSkyBlue) >> {
+        - int m_sockfd
+        - struct sockaddr_in m_addr
+        - mutex m_mutex
+        ==
+    }
+
+    statut --+ TcpServer
+    TcpServer *--> TcpClientListener
+
+    class UdpServer << (C, deepSkyBlue) >> {}
+
+}
+
+
+Class user << (s, HotPink) >> {
+    int id
+    string name
+    string ip
+    string contact
+    string psw
+    bool status
+    string histo
+    string pp
+}
+
+class DataBase << (C, HotPink) >> {
+
+    + void create_user(struct Database::User user);
+
+    + int getID(string userName);
+    + string get_psw(int id);
+    + bool get_status(int id);
+    + vector<pair<int , pair<string, string>>> get_histo(int id);
+    + string get_pp(int id);
+
+    + void setUserName(int id, string name);
+    + string getUserName(int uid);
+
+    + void addContact(int id, int id_add);
+    + vector<pair<int, string>> getContacts(int uid);
+    + void removeContact(int id, int id_suppr);
+
+    + void set_psw(int id, string psw);
+    + void set_status(int id, bool status);
+    + void add_histo(int id, int id_add, string date);
+    + void rem_histo(int id, int id_suppr);
+    + void set_pp(int id, string pp);
+
+    + void rem_user(int id);
+    + void dump_storage();
+
+}
+
+user --+ DataBase
+
+
+@enduml

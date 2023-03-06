@@ -1,0 +1,98 @@
+@startuml "ShipWreck Engine CoreView"
+
+skinparam class {
+    FontColor White
+    FontStyle bold
+    HeaderBackgroundColor DarkGray
+    AttributeFontColor White
+    BackgroundColor DarkGray
+}
+
+package com {
+
+    class TcpClient << (C, deepSkyBlue) >> {}
+    class UdpClient << (C, deepSkyBlue) >> {}
+
+}
+
+package audio {
+
+    class PaDeviceInfo << (P, IndianRed) >> {}
+
+    class inputSetting {
+        - double m_inputSampleRate
+    }
+    class outputSetting {
+        - double m_outputSampleRate
+    }
+
+    class PortAudio {
+        - bool m_initialize
+        - int m_error
+        ==
+        + bool open()
+        + bool close()
+        + bool start()
+        + bool stop()
+        + bool pause()
+        + bool resume()
+        + bool isInitialize()
+        + bool ok()
+    }
+
+    PortAudio *--> PaDeviceInfo
+
+    inputSetting --+ PortAudio
+    outputSetting --+ PortAudio
+
+    class OpusEncoder << (O, OrangeRed) >> {}
+    class OpusDecoder << (O, OrangeRed) >> {}
+
+    class Opus {
+        - int m_error
+        - bool m_initialize
+        ==
+        + void encoderInit()
+        + void decoderInit()
+        + void encoderDestroy()
+        + void decoderDestroy()
+    }
+
+    Opus *--> OpusEncoder
+    Opus *--> OpusDecoder
+
+}
+
+package gui {
+
+    class QWidget << (Q, YellowGreen) >> {}
+    class QPushButton << (Q, YellowGreen) >> {}
+
+    class Contact {
+        - {field} (QT) QIcon
+        - {field} name
+        ==
+    }
+
+    class ContactWindow {
+        - {field} (QT) QVBoxLayout
+        ==
+        + {method} addContact()
+    }
+
+
+    class Window {
+        - {field} (QT) grid
+        ==
+    }
+
+    QWidget <|-- Window
+    QWidget <|-- ContactWindow
+    QPushButton <|-- Contact
+
+    Window *--> ContactWindow
+    ContactWindow *--> Contact
+
+}
+
+@enduml
